@@ -642,7 +642,9 @@ sudo systemctl restart mariadb.service
     - 빠른 속도를 위해 SSD를 권장하며, root disk full 이 발생하지 않도록 **50GB 이상**으로 설정할 것을 권고합니다.
 
 - 최소 권장 사양: 4vCore/8GB
-    - **권장 사양 미만 사용 시 DBMS 설치가 제한될 수 있습니다.**
+- **권장 사양 미만 사용 시 DBMS 설치가 제한될 수 있습니다.**
+    - Standard Edition : 16vCore 이하 지원
+    - Cloud Enterprise Edition : 16vCore 초과 지원
 #### 추가 블록 스토리지
 
 - 루트 볼륨 이외의 추가 볼륨을 생성합니다.
@@ -660,7 +662,7 @@ sudo systemctl restart mariadb.service
 
 root 계정으로 /root 경로에서 dbca 명령어를 실행합니다.
 ```
-$ ./dbca OS_ACCOUNT DB_NAME DB_CHARACTERSET DB_TYPE DB_PORT
+$ ./dbca OS_ACCOUNT DB_NAME DB_CHARACTERSET $TYPE DB_PORT
 ```
 
 | No | 항목 | 인자값 |
@@ -668,7 +670,7 @@ $ ./dbca OS_ACCOUNT DB_NAME DB_CHARACTERSET DB_TYPE DB_PORT
 | 1 | OS\_ACCOUNT | Tibero가 구동되는 OS 계정 |
 | 2 | DB\_NAME | Tibero에서 사용되는 DB\_NAME(= SID) |
 | 3 | DB\_CHARACTERSET | Tibero에서 사용하는 DB 문자 집합 |
-| 4 | DB\_TYPE | Tibero Type 지정(16vCore 이하: SE/16vCore 초과: CE) |
+| 4 | $TYPE | 인스턴스에 맞는 타입이 지정되어 있음 (수정X) |
 | 5 | DB\_PORT | Tibero에서 사용하는 서비스 IP의 포트 |
 
 ##### Tibero 7 Cloud Standard Edition
@@ -677,7 +679,7 @@ $ ./dbca OS_ACCOUNT DB_NAME DB_CHARACTERSET DB_TYPE DB_PORT
 [root@tiberoinstance centos]# cd
 [root@tiberoinstance ~]# pwd
 /root
-[root@tiberoinstance ~]# ./dbca nhncloud tiberotestdb utf8 SE 8639
+[root@tiberoinstance ~]# ./dbca nhncloud tiberotestdb utf8 $TYPE 8639
 ```
 
 
@@ -687,7 +689,7 @@ $ ./dbca OS_ACCOUNT DB_NAME DB_CHARACTERSET DB_TYPE DB_PORT
 [root@tiberoinstance centos]# cd
 [root@tiberoinstance ~]# pwd
 /root
-[root@tiberoinstance ~]# ./dbca nhncloud tiberotestdb utf8 CE 8639
+[root@tiberoinstance ~]# ./dbca nhncloud tiberotestdb utf8 $TYPE 8639
 ```
 
 #### 설치 완료
